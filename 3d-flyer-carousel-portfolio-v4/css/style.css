@@ -1,0 +1,147 @@
+
+:root{
+  --cardW: 250px;
+  --cardH: 350px;
+  --radius3d: 420px;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,sans-serif;
+  background:#050506;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* background */
+.bg{
+  position:fixed;inset:0;
+  background:url("../assets/bg.jpg") center/cover;
+  filter:brightness(.65) saturate(1.1);
+  transform:scale(1.06);
+}
+.bgShade{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.85))}
+.vignette{position:fixed;inset:0;background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.95) 100%)}
+
+/* NEON NAME */
+.bgName{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-weight:900;
+  letter-spacing:10px;
+  pointer-events:none;
+  z-index:1;
+}
+.bgName .first{
+  font-size:clamp(80px,14vw,220px);
+  color:#e9f3ff;
+  text-shadow:
+    0 0 10px #9ad0ff,
+    0 0 40px #5fb7ff,
+    0 0 120px rgba(95,183,255,.8),
+    0 0 220px rgba(95,183,255,.6);
+  opacity:.18;
+}
+.bgName .second{
+  font-size:clamp(56px,10vw,150px);
+  margin-top:-20px;
+  color:#ffd6a0;
+  text-shadow:
+    0 0 10px #ffd6a0,
+    0 0 40px #ffb85c,
+    0 0 120px rgba(255,184,92,.8),
+    0 0 220px rgba(255,184,92,.6);
+  opacity:.22;
+}
+
+/* top */
+.topbar{
+  position:fixed;top:16px;left:16px;z-index:10;
+  padding:10px 14px;
+  background:rgba(0,0,0,.45);
+  border-radius:999px;
+  backdrop-filter:blur(12px);
+}
+
+/* stage */
+.stage{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:5;
+}
+.scene{
+  width:100%;
+  height:100%;
+  perspective:1200px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.carousel{
+  position:relative;
+  width:var(--cardW);
+  height:var(--cardH);
+  transform-style:preserve-3d;
+}
+
+/* cards */
+.card{
+  position:absolute;
+  width:var(--cardW);
+  height:var(--cardH);
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(14px);
+  cursor:pointer;
+  transition:transform .4s var(--ease), box-shadow .2s var(--ease), opacity .2s;
+}
+.card.front{
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.card h3{margin:14px;font-size:17px}
+.card p{margin:0 14px;color:rgba(255,255,255,.7);font-size:13px}
+.card .img{
+  position:absolute;bottom:0;left:0;right:0;height:110px;
+  background:linear-gradient(180deg,rgba(120,180,255,.35),rgba(0,0,0,.45))
+}
+
+/* overlay */
+.overlay{
+  position:fixed;inset:0;display:none;z-index:50
+}
+.overlay.open{display:block}
+.overlay-bg{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(14px)
+}
+.panel{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(.92);
+  width:min(980px,94vw);
+  max-height:82vh;
+  overflow:auto;
+  background:rgba(15,18,24,.94);
+  border-radius:26px;
+  padding:36px;
+  opacity:0;
+  animation:panelIn .45s var(--ease) forwards
+}
+@keyframes panelIn{
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+.back{
+  background:none;border:none;color:#fff;
+  font-size:18px;cursor:pointer;
+  margin-bottom:12px;
+}
